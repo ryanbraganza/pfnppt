@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<!-- Sample implementation of a chat:dialog module -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>App Dialog</title>
+
+    <!-- Import AtlasKit: https://atlaskit.atlassian.com -->
+    <link rel="stylesheet" href="//unpkg.com/@atlaskit/css-reset@latest"/>
+    <link rel="stylesheet" href="//unpkg.com/@atlaskit/reduced-ui-pack@latest"/>
+
+    <!-- Import JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Import the Stride Javascript API -->
+    <script src='https://dev-lib.stride.com/javascript/simple-xdm.js'></script>
+
+	<!-- Import local JS file  -->
+	<script src="/public/js/dialog.js"></script>
+
+</head>
+<body>
+<p>This is a modal dialog for your app. You can use it to trigger workflows or show forms. </p>
+<p>Here is the data that was passed to the dialog when it was opened: </p>
+<form>
+    <div class="ak-field-group">
+        <label for="cloudId">Site</label>
+        <input type="text" class="ak-field-text" id="cloudId" name="cloudId" placeholder="">
+    </div>
+    <div class="ak-field-group">
+        <label for="conversationId">Conversation</label>
+        <input type="text" class="ak-field-text" id="conversationId" name="conversationId" placeholder="">
+    </div>
+    <div class="ak-field-group">
+        <label for="conversationId">User</label>
+        <input type="text" class="ak-field-text" id="userId" name="userId" placeholder="">
+    </div>
+    <div class="ak-field-group">
+        <label for="parameters">Parameters</label>
+        <input type="text" class="ak-field-text" id="parameters" name="parameters" placeholder="">
+    </div>
+    <div class="ak-field-group">
+        <label for="conversationId">Message</label>
+        <input type="text" class="ak-field-text" id="message" name="message" placeholder="">
+    </div>
+</form>
+
+</body>
+</html>

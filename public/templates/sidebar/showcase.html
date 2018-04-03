@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<!-- Sample implementation of a chat:sidebar module with instructions to use the reference application-->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>App Sidebar</title>
+    <!-- Import JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Import AtlasKit: https://atlaskit.atlassian.com -->
+    <link rel="stylesheet" href="//unpkg.com/@atlaskit/css-reset@latest"/>
+    <link rel="stylesheet" href="//unpkg.com/@atlaskit/reduced-ui-pack@latest"/>
+
+    <!-- Import the Stride Javascript API -->
+    <script src='https://dev-lib.stride.com/javascript/simple-xdm.js'></script>
+
+    <!-- Import local JS file  -->
+    <script src="/public/js/sidebar/showcase.js"></script>
+
+</head>
+
+
+<body>
+
+<div id="tablediv">
+    <table class="ak-grid">
+        <thead>
+        <tr class="">
+            <th>Stride API Capabilities</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+            </td>
+        </tr>
+        <tr>
+
+            <!------------------ Help   ------------>
+        <tr>
+            <td>
+                <button type="button" class="ak-button ak-button__appearance-default" id="helpMenu">
+                    Help menu
+                </button>
+            </td>
+        </tr>
+
+        <!------------------ Client-side Javascript API ------------>
+
+        <tr>
+            <th>Client-side Javascript API</th>
+        </tr>
+
+        <td headers="basic-actions">
+            <button type="button" class="ak-button ak-button__appearance-default" id="openConfig">
+                Open app configuration
+            </button>
+        </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" class="ak-button ak-button__appearance-default" id="openDialog">
+                    Open app dialog
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <button type="button" class="ak-button ak-button__appearance-default" id="setMessageBody">
+                    Set message body
+                </button>
+            </td>
+        </tr>
+
+        <!--tr>
+            Bug with opening sidebar using the JS API from another sidebar
+            <td headers="basic-actions">
+                <button type="button" class="ak-button ak-button__appearance-default" id="listenToMessages">
+                    Listen to messages sent to room
+                </button>
+            </td>
+        </tr-->
+
+
+        <!------------------ Messages    ------------>
+
+        <tr>
+            <th>Messages</th>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" class="ak-button ak-button__appearance-default" id="richFormatMessage">
+                    Send rich format message
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" class="ak-button ak-button__appearance-default" id="textFormatMessage">
+                    Send text message
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" class="ak-button ak-button__appearance-default" id="textMarkdownFormatMessage">
+                    Send markdown message
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td headers="basic-actions">
+                <button type="button" class="ak-button ak-button__appearance-default" id="directMessage">
+                    Send direct message
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+            <td headers="basic-actions">
+                <button type="button" class="ak-button ak-button__appearance-default" id="editMessage">
+                    Send then update message
+                </button>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td headers="basic-actions">
+                <button type="button" class="ak-button ak-button__appearance-default" id="mediaMessage">
+                    Send message with image
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+            <td headers="basic-actions">
+                <button type="button" class="ak-button ak-button__appearance-default" id="deleteMessage">
+                    Send then delete message
+                </button>
+            </td>
+        </tr>
+
+        <!------------------ Users   ------------>
+        <tr>
+            <th>Users</th>
+        </tr>
+
+        <tr>
+            <td headers="basic-actions">
+                <button type="button" class="ak-button ak-button__appearance-default" id="userDetails">
+                    Get user details
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <button type="button" class="ak-button ak-button__appearance-default" id="userMention">
+                    Mention user
+                </button>
+            </td>
+        </tr>
+
+        <!------------------ Actions   ------------>
+
+        <tr>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <td headers="basic-actions">
+                <button type="button" class="ak-button ak-button__appearance-default" id="actionCard">
+                    Send card with actions
+                </button>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td headers="basic-actions">
+                <button type="button" class="ak-button ak-button__appearance-default" id="updateCard">
+                    Send card that updates
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+            <td headers="basic-actions">
+                <button type="button" class="ak-button ak-button__appearance-default" id="actionMark">
+                    Send message with action mark
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+          <td headers="basic-actions">
+            <button type="button" class="ak-button ak-button__appearance-default" id="inlineMessageAction">
+              Send message with inline actions
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td headers="basic-actions">
+            <button type="button" class="ak-button ak-button__appearance-default" id="inlineMessageSelect">
+              Send message with inline select
+            </button>
+          </td>
+        </tr>
+
+        <!------------------ Conversations    ------------>
+
+        <tr>
+            <th>Conversations</th>
+        </tr>
+        <tr>
+            <td headers="basic-actions">
+                <button type="button" class="ak-button ak-button__appearance-default" id="getConversationDetails">
+                    Get conversation details
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td headers="basic-actions">
+                <button type="button" class="ak-button ak-button__appearance-default" id="archiveConversation">
+                    Archive conversation
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+            <td headers="basic-actions">
+                <button type="button" class="ak-button ak-button__appearance-default" id="unarchiveConversation">
+                    Unarchive conversation
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+          <td headers="basic-actions">
+              <button type="button" class="ak-button ak-button__appearance-default" id="addUser">
+                  Add user to new conversation
+              </button>
+          </td>
+        </tr>
+
+        <!------------------ Glances    ------------>
+
+        <tr>
+            <th>Glances</th>
+        </tr>
+        <tr>
+            <td headers="basic-actions">
+                <button type="button" class="ak-button ak-button__appearance-default" id="updateGlanceState">
+                    Update glance state
+                </button>
+            </td>
+        </tr>
+
+        <!------------------ Custom: Making an AJAX call from the app front-ent (sidebar, dialog, configuration dialog)
+        to the app back-end in a secured way, using JWT tokens generated via the Stride Javascript API ------------>
+
+        <tr>
+            <th>Custom</th>
+        </tr>
+        <tr>
+            <td headers="basic-actions">
+                <button type="button" class="ak-button ak-button__appearance-default" id="pingApp">
+                    Ping App
+                </button>
+            </td>
+        </tr>
+
+        <!------------------ Experimental: use at your own risk! Things in this section are likely to break and not supported  ------------>
+        <tr>
+            <th>EXPERIMENTAL / unsupported</th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div id="responses">
+    <table>
+        <thead>
+        <tr class="">
+            <th>Debugging</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <div id="info">API responses will be shown here</div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

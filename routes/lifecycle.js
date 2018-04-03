@@ -1,0 +1,96 @@
+const helpers = require('../helpers');
+const express = require('express');
+const router = express.Router();
+const util = require('util');
+const logger = require('../middleware/logger').logger;
+const stride = require('../client');
+const createDescriptor = require('./../createDescriptor');
+
+/**
+ *  @name Lifecycle: installation events
+ *  @see {@link https://developer.atlassian.com/cloud/stride/blocks/app-lifecycle/ | Installation Events }
+ *  @description
+ *
+ *  In order to be granted access to a conversation (for instance, to send messages) an app must be installed by a user in the conversation.
+ *  Your app can be notified whenever a user installs or uninstalls it in a conversation. Stride makes a POST request that will be made to the lifecycle URL defined in the app descriptor.
+ *  Lifecycle events behave essentially like webhooks.
+ **/
+router.post('/installed', async function(req, res, next) {
+  const loggerInfoName = 'app_install';
+
+  //Send 200 response to Stride immediately, letting the server know you're on it.
+  let context = {
+    cloudId: req.body.cloudId,
+    userId: req.body.userId,
+    conversationId: req.body.resourceId,
+  };
+
+  let relayState = req.body.relayState;
+  if (relayState) logger.info(`${loggerInfoName} The app installation relayState is ${relayState}`);
+
+  try {
+    //  Here is where you can store state to your db //
+    //...
+
+    // We want to send a welcome message that includes a mention for the app's bot user
+    // So first, we'll get the app user Id using the "/me" endpoint
+    const getAppUser = stride.api.users
+      .me()
+      .then(response => {
+        logger.info(`${loggerInfoName} app user details ${util.format(response)}`);
+        return response;
+      })
+      .catch(err => {
+        logger.error(`${loggerInfoName} error gett app user details: ${err}`);
+      });
+
+    const appUser = await getAppUser;
+    const appUserId = appUser.account_id;
+
+    //Then send a welcome message
+    let welcomeDocument = helpers.format.welcomeMessage(appUserId);
+
+    let opts = {
+      body: welcomeDocument,
+      headers: {
+        'Content-Type': 'application/json',
+        accept: 'application/json',
+      },
+    };
+
+    // Send Stride message via API
+    stride.api.messages
+      .message_send_conversation(context.cloudId, context.conversationId, opts)
+      .then(response => {
+        logger.info(`${loggerInfoName} welcome message sent to user: ${response}`);
+        res.sendStatus(200);
+      });
+  } catch (err) {
+    logger.error(`message_conversation_post error: ${err}`);
+    next(err);
+  }
+});
+
+/**
+ *  @name Lifecycle: app descriptor
+ *  @see {@link https://developer.atlassian.com/cloud/stride/blocks/app-descriptor/ | Descriptor Requests }
+ *  @see {@link https://developer.atlassian.com/cloud/stride/blocks/app-lifecycle/ | Lifecycle Events }
+ *  @description
+ *
+ *  The app descriptor is a JSON file that describes how Stride should communicate with the app.
+ *  The descriptor includes general information for the app, as well as the modules that the app wants to use.
+ *  The app descriptor serves as the glue between the app and Stride. When a user installs an app,
+ *  what they are really doing is installing this descriptor file.
+ *
+ *  Stride needs to be able to retrieve this from your app server.
+ **/
+router.get('/descriptor', function(req, res) {
+  logger.info('module:descriptor incoming request');
+  res.send(createDescriptor(req));
+});
+
+router.get('/createStrideButton', function(req, res) {
+  res.redirect('/public/templates/createStrideButton.html');
+});
+
+module.exports = router;
